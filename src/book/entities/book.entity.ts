@@ -1,7 +1,9 @@
-import { Prop } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Author } from './author.entity';
 import { Format } from './format.entity';
+
+@Schema()
 export class Book extends Document {
   @Prop({
     required: true,
@@ -25,3 +27,5 @@ export class Book extends Document {
   media_type: string;
   formats: Format[];
 }
+
+export const BookSchema = SchemaFactory.createForClass(Book);

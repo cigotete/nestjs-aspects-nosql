@@ -1,7 +1,8 @@
-import { Prop } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export interface Author extends Document {
+@Schema()
+export class Author extends Document {
   @Prop({
     required: true,
     unique: true,
@@ -10,3 +11,5 @@ export interface Author extends Document {
   birth_year: number;
   death_year: number;
 }
+
+export const AuthorSchema = SchemaFactory.createForClass(Author);
