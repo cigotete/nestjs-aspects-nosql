@@ -15,6 +15,7 @@ export class Book extends Document {
     unique: true,
   })
   title: string;
+  /*
   @Prop({
     required: true,
   })
@@ -26,6 +27,7 @@ export class Book extends Document {
   copyright: boolean;
   media_type: string;
   formats: Format[];
+  */
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);

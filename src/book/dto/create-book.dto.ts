@@ -18,7 +18,7 @@ export class CreateBookDto {
 
   @IsString()
   title: string;
-
+  /*
   @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => AuthorDto)
@@ -45,4 +45,5 @@ export class CreateBookDto {
   @ValidateNested({ each: true })
   @Type(() => FormatDto)
   formats: FormatDto[];
+  */
 }
