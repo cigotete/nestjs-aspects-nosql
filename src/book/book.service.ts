@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -11,8 +11,17 @@ export class BookService {
   ) {}
 
   async create(createBookDto: CreateBookDto) {
-    const createdBook = await this.bookModel.create(createBookDto);
-    return createdBook;
+    try {
+      const createdBook = await this.bookModel.create(createBookDto);
+      return createdBook;
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new BadRequestException(
+          `Book with idremote ${createBookDto.idremote} already exists`,
+        );
+      }
+      throw new InternalServerErrorException(`Error creating book`);
+    }
   }
 
   findAll() {
