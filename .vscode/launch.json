@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug NestJS App",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/main.ts",
+      "cwd": "${workspaceFolder}",
+      "args": ["run", "start:dev"],
+      "runtimeArgs": ["--inspect-brk=0.0.0.0:9229"],
+      "sourceMaps": true,
+      "protocol": "inspector",
+      "console": "integratedTerminal"
+    }
+  ]
+}
