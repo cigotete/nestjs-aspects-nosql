@@ -25,9 +25,9 @@ export class BookController {
     return this.bookService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bookService.findOne(+id);
+  @Get(':term')
+  findOne(@Param('term') term: string) {
+    return this.bookService.findOne(term);
   }
 
   @Patch(':id')
