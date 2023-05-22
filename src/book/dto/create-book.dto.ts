@@ -6,6 +6,7 @@ import {
   IsPositive,
   IsString,
   Min,
+  MinLength,
   ValidateNested,
 } from 'class-validator';
 import { AuthorDto } from './create-author.dto';
@@ -17,6 +18,7 @@ export class CreateBookDto {
   idremote: number;
 
   @IsString()
+  @MinLength(1)
   title: string;
   /*
   @IsNotEmpty()
