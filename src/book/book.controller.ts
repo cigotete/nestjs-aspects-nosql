@@ -30,9 +30,9 @@ export class BookController {
     return this.bookService.findOne(term);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.bookService.update(+id, updateBookDto);
+  @Patch(':term')
+  update(@Param('term') term: string, @Body() updateBookDto: UpdateBookDto) {
+    return this.bookService.update(term, updateBookDto);
   }
 
   @Delete(':id')

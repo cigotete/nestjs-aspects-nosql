@@ -57,8 +57,22 @@ export class BookService {
     return book;
   }
 
-  update(id: number, updateBookDto: UpdateBookDto) {
-    return `This action updates a #${id} book`;
+  async update(term: string, updateBookDto: UpdateBookDto) {
+    const book = await this.findOne(term);
+    /*if (updateBookDto.title) {
+      updateBookDto.title = updateBookDto.title.toLowerCase();
+    }*/
+    try {
+      await book.updateOne(updateBookDto);
+      return { ...book.toJSON(), ...updateBookDto };
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new BadRequestException(
+          `Book with idremote ${updateBookDto.idremote} already exists`,
+        );
+      }
+      throw new InternalServerErrorException(`Error creating book`);
+    }
   }
 
   remove(id: number) {
