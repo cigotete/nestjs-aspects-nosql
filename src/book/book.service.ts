@@ -20,12 +20,7 @@ export class BookService {
       const createdBook = await this.bookModel.create(createBookDto);
       return createdBook;
     } catch (error) {
-      if (error.code === 11000) {
-        throw new BadRequestException(
-          `Book with idremote ${createBookDto.idremote} already exists`,
-        );
-      }
-      throw new InternalServerErrorException(`Error creating book`);
+      this.handleException(error);
     }
   }
 
@@ -66,16 +61,20 @@ export class BookService {
       await book.updateOne(updateBookDto);
       return { ...book.toJSON(), ...updateBookDto };
     } catch (error) {
-      if (error.code === 11000) {
-        throw new BadRequestException(
-          `Book with idremote ${updateBookDto.idremote} already exists`,
-        );
-      }
-      throw new InternalServerErrorException(`Error creating book`);
+      this.handleException(error);
     }
   }
 
   remove(id: number) {
     return `This action removes a #${id} book`;
+  }
+
+  private handleException(error: any) {
+    if (error.code === 11000) {
+      throw new BadRequestException(
+        `Book ${JSON.stringify(error.keyValue)} already exists`,
+      );
+    }
+    throw new InternalServerErrorException(`Error creating book`);
   }
 }
